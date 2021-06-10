@@ -1,27 +1,29 @@
 package com.ml.imobiliaria.dto;
 
+import com.ml.imobiliaria.error.Message;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.List;
 
 public class PropriedadeDTO {
-    @NotEmpty(message = "O nome da propriedade não pode estar vazio.")
-    @Pattern(regexp = "^[A-Z].*", message = "O nome da propriedade deve começar com uma letra maiúscula.")
-    @Size(max = 30, message = "O comprimento do nome não pode exceder 30 caracteres.")
+    @NotEmpty(message = Message.NOME_DA_PROPRIEDADE_VAZIO)
+    @Pattern(regexp = "^[A-Z].*", message = Message.NOME_DA_PROPRIEDADE_DEVE_INICIAR_COM_LETRA_MAIUSCULA)
+    @Size(max = 30, message = Message.TAMANHO_DA_PROPRIEDADE_NAO_PODE_SER_MAIOR_QUE_30)
     private String nome;
 
-    @NotEmpty(message = "O bairro não pode estar vazio.")
-    @Size(max = 45, message = "O comprimento do bairro não pode exceder 45 caracteres.")
+    @NotEmpty(message = Message.NOME_DO_BAIRRO_VAZIO)
+    @Size(max = 45, message = Message.TAMANHO_DO_NOME_DO_BAIRRO_NAO_PODE_SER_MAIOR_QUE_45)
     private String bairro;
 
     @Valid
-    Set<ComodoDTO> comodos;
+    List<ComodoDTO> comodos;
 
     public PropriedadeDTO() { }
 
-    public PropriedadeDTO(String nome, String bairro, Set<ComodoDTO> comodos) {
+    public PropriedadeDTO(String nome, String bairro, List<ComodoDTO> comodos) {
         this.nome = nome;
         this.bairro = bairro;
         this.comodos = comodos;
@@ -43,11 +45,11 @@ public class PropriedadeDTO {
         this.bairro = bairro;
     }
 
-    public Set<ComodoDTO> getComodos() {
+    public List<ComodoDTO> getComodos() {
         return comodos;
     }
 
-    public void setComodos(Set<ComodoDTO> comodos) {
+    public void setComodos(List<ComodoDTO> comodos) {
         this.comodos = comodos;
     }
 }

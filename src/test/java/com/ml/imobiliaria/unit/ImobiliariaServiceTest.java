@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,7 +54,7 @@ public class ImobiliariaServiceTest {
         propriedadeDTO.setNome("Propriedade Teste");
         propriedadeDTO.setBairro("mangabeira");
 
-        Set<ComodoDTO> comodos = Set.of(
+        List<ComodoDTO> comodos = List.of(
                 new ComodoDTO("Quarto", 5d, 2d), //  Area = 10
                 new ComodoDTO("Cozinha", 5d, 5d), // Area 25
                 new ComodoDTO("Area de servico", 1d, 1d), // Area 1

@@ -1,5 +1,7 @@
 package com.ml.imobiliaria.dto;
 
+import com.ml.imobiliaria.error.Message;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -7,17 +9,17 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class ComodoDTO {
-    @NotEmpty(message = "O campo não pode estar vazio.")
-    @Size(max = 30, message = "O comprimento do cômodo não pode exceder 30 caracteres.")
-    @Pattern(regexp = "^[A-Z].*", message = "O nome do cômodo deve começar com uma letra maiúscula.")
+    @NotEmpty(message = Message.NOME_DO_COMODO_VAZIO)
+    @Size(max = 30, message = Message.TAMANHO_DO_NOME_DO_COMODO_NAO_PODE_SER_MAIOR_QUE_30)
+    @Pattern(regexp = "^[A-Z].*", message = Message.NOME_DO_COMODO_DEVE_INICIAR_COM_LETRA_MAIUSCULA)
     private String nome;
 
-    @NotNull(message = "A largura do cômodo não pode estar vazia.")
-    @Max(value = 25, message = "A largura máxima permitida por cômodo é de 25 metros")
+    @NotNull(message = Message.LARGURA_DO_COMODO_NAO_PODE_SER_VAZIA)
+    @Max(value = 25, message = Message.LARGURA_DO_COMODO_NAO_PODE_SER_MAIOR_QUE_25)
     private Double largura;
 
-    @NotNull(message = "O comprimento do cômodo não pode estar vazio.")
-    @Max(value = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros.")
+    @NotNull(message = Message.COMPRIMENTO_DO_COMODO_NAO_PODE_SER_VAZIO)
+    @Max(value = 33, message = Message.COMPRIMENTO_DO_COMODO_NAO_PODE_SER_MAIOR_QUE_33)
     private Double comprimento;
 
     public ComodoDTO() {
