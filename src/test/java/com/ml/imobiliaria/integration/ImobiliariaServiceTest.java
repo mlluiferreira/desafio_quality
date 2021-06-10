@@ -30,7 +30,7 @@ public class ImobiliariaServiceTest {
 
     private PropriedadeDTO propriedadeDTO;
 
-    private ComodoDTO maiorComodo = new ComodoDTO("Area de Lazer", 25d, 33d);
+    private final ComodoDTO maiorComodo = new ComodoDTO("Area de Lazer", 25d, 33d);
 
     @BeforeEach
     public void inicializarPropriedadeDTO() {

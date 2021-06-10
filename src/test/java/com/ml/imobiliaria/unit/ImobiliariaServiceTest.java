@@ -36,7 +36,7 @@ public class ImobiliariaServiceTest {
 
     private PropriedadeDTO propriedadeDTO;
 
-    private ComodoDTO maiorComodo = new ComodoDTO("Area de Lazer", 25d, 33d);
+    private final ComodoDTO maiorComodo = new ComodoDTO("Area de Lazer", 25d, 33d);
 
     @BeforeEach
     public void configurarTeste() {
@@ -76,7 +76,7 @@ public class ImobiliariaServiceTest {
     public void deve_retornar_maior_comodo() {
         ComodoDTO comodoDTO = imobiliariaService.obterMaiorComodo(propriedadeDTO);
         assertNotNull(comodoDTO);
-        assertRoom(maiorComodo, comodoDTO);
+        assertComodo(maiorComodo, comodoDTO);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class ImobiliariaServiceTest {
         assertEquals(BigDecimal.valueOf(870000d), valorPropriedadeDTO.getValor());
     }
 
-    private void assertRoom(ComodoDTO expected, ComodoDTO current) {
+    private void assertComodo(ComodoDTO expected, ComodoDTO current) {
         assertEquals(expected.getNome(), current.getNome());
         assertEquals(expected.getLargura(), current.getLargura());
         assertEquals(expected.getComprimento(), current.getComprimento());
