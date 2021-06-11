@@ -1,16 +1,16 @@
 package com.ml.imobiliaria.dto;
 
+import com.ml.imobiliaria.annotation.FirstLetterIsUpperCase;
 import com.ml.imobiliaria.error.Message;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
 public class PropriedadeDTO {
     @NotEmpty(message = Message.NOME_DA_PROPRIEDADE_VAZIO)
-    @Pattern(regexp = "^[A-Z].*", message = Message.NOME_DA_PROPRIEDADE_DEVE_INICIAR_COM_LETRA_MAIUSCULA)
+    @FirstLetterIsUpperCase(message = Message.NOME_DA_PROPRIEDADE_DEVE_INICIAR_COM_LETRA_MAIUSCULA)
     @Size(max = 30, message = Message.TAMANHO_DA_PROPRIEDADE_NAO_PODE_SER_MAIOR_QUE_30)
     private String nome;
 
