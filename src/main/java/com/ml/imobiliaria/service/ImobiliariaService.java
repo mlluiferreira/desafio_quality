@@ -1,10 +1,10 @@
 package com.ml.imobiliaria.service;
 
-import com.ml.imobiliaria.dto.BairroDTO;
-import com.ml.imobiliaria.dto.ComodoDTO;
-import com.ml.imobiliaria.dto.ComodoAreaDTO;
-import com.ml.imobiliaria.dto.PropriedadeDTO;
 import com.ml.imobiliaria.dto.AreaPropriedadeDTO;
+import com.ml.imobiliaria.dto.BairroDTO;
+import com.ml.imobiliaria.dto.ComodoAreaDTO;
+import com.ml.imobiliaria.dto.ComodoDTO;
+import com.ml.imobiliaria.dto.PropriedadeDTO;
 import com.ml.imobiliaria.dto.ValorPropriedadeDTO;
 import org.springframework.stereotype.Service;
 
