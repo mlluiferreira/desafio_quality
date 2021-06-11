@@ -11,11 +11,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -134,6 +138,43 @@ public class ImobiliariaControllerTest {
         sendAllEndpoints(propriedadeDTO, expected);
     }
 
+    @Test
+    public void deve_retornar_a_area_da_propriedade() throws Exception {
+        ResultMatcher expected = jsonPath("$.area").value(870);
+        sendPostRequest("/propriedade/area", propriedadeDTO, expected);
+    }
+
+    @Test
+    public void deve_retornar_o_valor_da_propriedade() throws Exception {
+        ResultMatcher expected = jsonPath("$.valor").value(870000);
+        sendPostRequest("/propriedade/valor", propriedadeDTO, expected);
+    }
+
+    @Test
+    public void deve_retornar_o_maior_comodo_da_propriedade() throws Exception {
+        ResultMatcher []expected = {
+                jsonPath(".nome").value("Area de Lazer"),
+                jsonPath(".largura").value(25.0),
+                jsonPath(".comprimento").value(33.0),
+        };
+        sendPostRequest("/propriedade/maiorComodo", propriedadeDTO, expected);
+    }
+
+    @Test
+    public void deve_retornar_a_area_de_cada_comodo() throws Exception {
+        List<ResultMatcher> expecteds = new ArrayList<>();
+
+        IntStream.range(0, propriedadeDTO.getComodos().size()).forEach(i -> {
+            ComodoDTO comodoDTO = propriedadeDTO.getComodos().get(i);
+            expecteds.add(jsonPath(String.format("[%d].nome", i)).value(comodoDTO.getNome()));
+            expecteds.add(jsonPath(String.format("[%d].largura", i)).value(comodoDTO.getLargura()));
+            expecteds.add(jsonPath(String.format("[%d].comprimento", i)).value(comodoDTO.getComprimento()));
+            expecteds.add(jsonPath(String.format("[%d].area", i)).value(comodoDTO.getComprimento() * comodoDTO.getLargura()));
+        });
+
+        sendPostRequest("/propriedade/areaComodos", propriedadeDTO, expecteds.toArray(ResultMatcher[]::new));
+    }
+
     private void sendAllEndpoints(PropriedadeDTO propriedadeDTO, ResultMatcher expected) throws Exception {
         sendPostRequest("/propriedade/area", propriedadeDTO, expected);
         sendPostRequest("/propriedade/valor", propriedadeDTO, expected);
@@ -141,14 +182,16 @@ public class ImobiliariaControllerTest {
         sendPostRequest("/propriedade/areaComodos", propriedadeDTO, expected);
     }
 
-    private void sendPostRequest(String path, Object content, ResultMatcher expected) throws Exception {
-        mockMvc.perform(
+    private void sendPostRequest(String path, Object content, ResultMatcher... expected) throws Exception {
+        ResultActions action = mockMvc.perform(
                 MockMvcRequestBuilders
                         .post(path)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(content))
         )
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(expected);
+                .andDo(MockMvcResultHandlers.print());
+
+        for (ResultMatcher matcher : expected)
+            action.andExpect(matcher);
     }
 }
