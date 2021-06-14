@@ -10,8 +10,8 @@ import java.util.List;
 
 public class PropriedadeDTO {
     @NotEmpty(message = Message.NOME_DA_PROPRIEDADE_VAZIO)
-    @FirstLetterIsUpperCase(message = Message.NOME_DA_PROPRIEDADE_DEVE_INICIAR_COM_LETRA_MAIUSCULA)
     @Size(max = 30, message = Message.TAMANHO_DA_PROPRIEDADE_NAO_PODE_SER_MAIOR_QUE_30)
+    @FirstLetterIsUpperCase(message = Message.NOME_DA_PROPRIEDADE_DEVE_INICIAR_COM_LETRA_MAIUSCULA)
     private String nome;
 
     @NotEmpty(message = Message.NOME_DO_BAIRRO_VAZIO)
